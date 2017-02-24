@@ -49,6 +49,12 @@ function sql_set_query($sql) {
 	return $response;
 }
 
+
+
+/***************************************************
+****************** USER FUNCTIONS ****************** 
+****************************************************/
+
 function getUser( $username ) {
 	$sql = 'SELECT * FROM  user WHERE username="'.$username.'"';
 	return sql_get_query($sql);
@@ -68,6 +74,23 @@ function setUser( $username, $password, $email ) {
 	return sql_set_query($sql);
 }
 
+
+
+/***************************************************
+**************** VEHICLE FUNCTIONS ***************** 
+****************************************************/
+
+function getVehicles( $username ) {
+	$sql = 'SELECT make, model, year, type FROM  garage, vehicle WHERE garage.username="'.$username.'" AND garage.vehicleid=vehicle.vehicleid';
+	return sql_get_query($sql);
+}
+
+
+
+/***************************************************
+****************** TRACK FUNCTIONS ***************** 
+****************************************************/
+
 function getTrackInfo( $trackID ){
 	$sql = 'SELECT * FROM  track WHERE trackid="'.$trackID.'"';
 	return sql_get_query($sql);
@@ -86,6 +109,12 @@ function setTrackInfo( $trackID, $creator, $trackname, $trackdescription, $track
 	// return query
 	return sql_set_query($sql);
 }
+
+
+
+/***************************************************
+**************** WAYPOINT FUNCTIONS **************** 
+****************************************************/
 
 function getWaypoints( $trackID, $pointorder ){
 	// if point order is set to -1, get all waypoints for trackid
@@ -115,5 +144,11 @@ function updateWaypoint( $trackID, $pointorder, $isfinish, $latitude, $longitude
 	// return query
 	return sql_set_query($sql);
 }
+
+
+
+/***************************************************
+**************** LAPTIME FUNCTIONS ***************** 
+****************************************************/
 
 ?>
