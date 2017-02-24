@@ -74,14 +74,43 @@ function getTrackInfo( $trackID ){
 }
 
 function setTrackInfo( $trackID, $creator, $trackname, $trackdescription, $tracktags, $distancemiles ) {
-	// check if user doesnt exist yet
+	// check if track doesnt exist yet
 	if( !getTrackInfo($trackID) ) {
-		// insert the user into the database
+		// insert the track into the database
 		$sql = 'INSERT INTO track (creator, trackname, trackdescription, tracktags, distancemiles) VALUES ("'.$trackID.'", "'.$creator.'", "'.$trackname.'", "'.$trackdescription.'", "'.$tracktags.'", "'.$distancemiles.'")';
 	}
 	else {
-		// user already exists, update password and email
+		// track already exists, update password and email
 		$sql = 'UPDATE track SET creator="'.$creator.'",trackname="'.$trackname.'",trackdescription="'.$trackdescription.'",tracktags="'.$tracktags.'",distancemiles="'.$distancemiles.'" WHERE trackid="'.$trackID.'"';
+	}
+	// return query
+	return sql_set_query($sql);
+}
+
+function getWaypoints( $trackID, $pointorder ){
+	// if point order is set to -1, get all waypoints for trackid
+	if ($pointorder == -1 )
+		$sql = 'SELECT * FROM  waypoint WHERE trackid="'.$trackID.'"';
+	else
+		$sql = 'SELECT * FROM  waypoint WHERE trackid="'.$trackID.'" AND pointorder="'.$pointorder.'"';
+		
+	return sql_get_query($sql);
+}
+
+function setWaypoints( $waypointsArr ) {
+	// pass array of waypoints to add to database
+	// waypoint object has trackID, pointorder, isfinish, latitude, longitude
+}
+
+function updateWaypoint( $trackID, $pointorder, $isfinish, $latitude, $longitude ) {
+	// check if waypoint doesnt exist yet
+	if( !getWaypoints($trackID, $pointorder) ) {
+		// insert the waypoint into the database
+		$sql = 'INSERT INTO track (creator, trackname, trackdescription, tracktags, distancemiles) VALUES ("'.$trackID.'", "'.$creator.'", "'.$trackname.'", "'.$trackdescription.'", "'.$tracktags.'", "'.$distancemiles.'")';
+	}
+	else {
+		// waypoint already exists, update password and email
+		$sql = 'UPDATE waypoint SET isfinish="'.$isfinish.'",latitude="'.$latitude.'",longitude="'.$longitude.'" WHERE trackid="'.$trackID.'" AND pointorder="'.$pointorder.'"';
 	}
 	// return query
 	return sql_set_query($sql);

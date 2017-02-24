@@ -39,7 +39,7 @@ CREATE TABLE waypoint (
 	pointorder INT NOT NULL,
 	isfinish BIT,
 	latitude DOUBLE NOT NULL,
-	longitutude DOUBLE NOT NULL,
+	longitude DOUBLE NOT NULL,
 	PRIMARY KEY (trackid, pointorder)
 );
 
